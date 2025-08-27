@@ -3,9 +3,12 @@ import * as config from "./config";
 import { db } from "./db";
 import cookieParser from "cookie-parser";
 import { applicationRoutes } from "./routes";
+import cors from "cors"
 
 
 const app: Application = express();
+
+app.use(cors())
 app.use(cookieParser());
 
 
