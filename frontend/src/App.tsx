@@ -1,9 +1,15 @@
+import LoginPage from "./components/Login"
+import Profile from "./components/Profile"
+import { AuthProvider } from "./context/authContext"
 
 function App() {
 
   return (
     <>
-      <p className='font-bold text-brand'>Hi</p>
+      <AuthProvider>
+        <LoginPage />
+        <Profile />
+      </AuthProvider>
     </>
   )
 }
