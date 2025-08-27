@@ -1,16 +1,14 @@
-import LoginPage from "./components/Login"
-import Profile from "./components/Profile"
+import { BrowserRouter } from "react-router-dom"
 import { AuthProvider } from "./context/authContext"
+import AppRoutes from "./routes/AppRoutes"
 
 function App() {
-
   return (
-    <>
+    <BrowserRouter>
       <AuthProvider>
-        <LoginPage />
-        <Profile />
+        <AppRoutes />
       </AuthProvider>
-    </>
+    </BrowserRouter>
   )
 }
 

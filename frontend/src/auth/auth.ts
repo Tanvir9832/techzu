@@ -1,21 +1,28 @@
 import axios from "axios";
 
-let accessToken: string | null = null;
+const TOKEN_KEY = "techzu_access_token";
 
 export const setAccessToken = (token: string) => {
-  accessToken = token;
+  localStorage.setItem(TOKEN_KEY, token);
 };
 
-export const getAccessToken = () => accessToken;
+export const getAccessToken = (): string | null => {
+  return localStorage.getItem(TOKEN_KEY);
+};
+
+export const clearAccessToken = () => {
+  localStorage.removeItem(TOKEN_KEY);
+};
 
 const api = axios.create({
-  baseURL: "http://localhost:4000", 
+  baseURL: "http://localhost:4000",
   withCredentials: true, 
 });
 
 api.interceptors.request.use((config) => {
-  if (accessToken && config.headers) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+  const token = getAccessToken();
+  if (token && config.headers) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
@@ -39,6 +46,10 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (err) {
         console.error("Refresh token failed", err);
+        // Clear token on refresh failure
+        clearAccessToken();
+        // Redirect to login if needed
+        window.location.href = "/auth";
       }
     }
     return Promise.reject(error);
