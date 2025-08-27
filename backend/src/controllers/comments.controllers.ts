@@ -19,7 +19,7 @@ export const CommentController = {
     try {
       const { id } = req.params;
       const { content } = req.body;
-      const comment = await CommentService.editComment(id, content);
+      const comment = await CommentService.editComment(new mongoose.Types.ObjectId(id!), content);
       res.json(comment);
     } catch (err: any) {
       res.status(400).json({ message: err.message });
@@ -29,7 +29,7 @@ export const CommentController = {
   delete: async (req: AuthRequest, res: Response) => {
     try {
       const { id } = req.params;
-      await CommentService.deleteComment(id);
+      await CommentService.deleteComment(new mongoose.Types.ObjectId(id!));
       res.json({ message: "Comment deleted" });
     } catch (err: any) {
       res.status(400).json({ message: err.message });

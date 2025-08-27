@@ -1,6 +1,6 @@
 import mongoose, { Document } from "mongoose";
 
-export interface ILike extends Document {
-    likedBy: mongoose.Types.ObjectId;
+export interface IDislike extends Document {
+    disLikedBy: mongoose.Types.ObjectId;
     commentAuthor: mongoose.Types.ObjectId;
 }

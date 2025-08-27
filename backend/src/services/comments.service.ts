@@ -8,14 +8,14 @@ export const CommentService = {
     return comment;
   },
 
-  editComment: async (id: string, content: string): Promise<ICommentDocument> => {
+  editComment: async (id: mongoose.Types.ObjectId, content: string): Promise<ICommentDocument> => {
     const comment = await CommentRepository.findById(id);
     if (!comment) throw new Error("Comment not found");
     comment.content = content;
     return await CommentRepository.save(comment);
   },
 
-  deleteComment: async (id: string): Promise<void> => {
+  deleteComment: async (id: mongoose.Types.ObjectId): Promise<void> => {
     const deleted = await CommentRepository.deleteById(id);
     if (!deleted) throw new Error("Comment not found");
   },
