@@ -21,12 +21,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [accessToken, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const USER_KEY = "techzu_user";
 
   useEffect(() => {
     const initializeAuth = async () => {
       try {
         // Check if there's a stored token on app load
         const token = getAccessToken();
+        const savedUser = localStorage.getItem(USER_KEY);
+        console.log(savedUser)
+        if (savedUser) {
+          try {
+            setUser(JSON.parse(savedUser));
+          } catch {
+            localStorage.removeItem(USER_KEY);
+          }
+        }
         if (token) {
           // Validate the token by making a test request
           try {
@@ -42,6 +52,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             console.error("Token validation failed:", validationError);
             clearAccessToken();
             setToken(null);
+            setUser(null);
           }
         }
       } catch (error) {
@@ -49,6 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         // Clear any invalid tokens
         clearAccessToken();
         setToken(null);
+        setUser(null);
       } finally {
         // Always set loading to false after initialization
         setLoading(false);
@@ -69,6 +81,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Store user info if available
       if (res.data.user) {
         setUser(res.data.user);
+        localStorage.setItem(USER_KEY, JSON.stringify(res.data.user));
       }
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : "Login failed";
@@ -94,6 +107,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setToken(null);
     setUser(null);
     clearAccessToken();
+    localStorage.removeItem(USER_KEY);
   };
 
   const value: AuthContextType = {

@@ -15,7 +15,7 @@ export const AuthController = {
   login: async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
-      const { accessToken, refreshToken } = await AuthService.login(email, password);
+      const { accessToken, refreshToken, user } = await AuthService.login(email, password);
 
       // Send refresh token as HttpOnly cookie
       res.cookie("jid", refreshToken, {
@@ -24,7 +24,7 @@ export const AuthController = {
         maxAge: 7*24*60*60*1000,
         secure: false     // must be false for HTTP
         });
-      res.json({ accessToken });
+      res.json({ accessToken, user });
     } catch (err: any) {
       res.status(400).json({ message: err.message });
     }
