@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import PublicRoute from './public-routes';
-import LoginPage from '../components/Login';
+import LoginPage from '../pages/Login';
 import PrivateRoute from './private-routes';
-import Profile from '../components/Profile';
+import Profile from '../pages/Profile';
 
 const AppRoutes = () => {
   return (
