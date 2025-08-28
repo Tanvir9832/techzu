@@ -14,7 +14,10 @@ export const AuthService = {
     return user;
   },
 
-  login: async (email: string, password: string): Promise<{ accessToken: string; refreshToken: string }> => {
+  login: async (
+    email: string,
+    password: string
+  ): Promise<{ accessToken: string; refreshToken: string; user: { _id: string; email: string } }> => {
     const user = await UserRepository.findByEmail(email);
     if (!user) throw new Error("Invalid credentials");
 
@@ -27,7 +30,7 @@ export const AuthService = {
     user.refreshToken = refreshToken;
     await UserRepository.save(user);
 
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken, user: { _id: String(user._id), email: user.email } };
   },
 
   refreshToken: async (token: string): Promise<{ accessToken: string; refreshToken: string }> => {
