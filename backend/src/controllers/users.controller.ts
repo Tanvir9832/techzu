@@ -17,13 +17,12 @@ export const AuthController = {
       const { email, password } = req.body;
       const { accessToken, refreshToken, user } = await AuthService.login(email, password);
 
-      // Send refresh token as HttpOnly cookie
       res.cookie("jid", refreshToken, {
-        httpOnly: true,
-        path: "/auth/refresh-token",
-        maxAge: 7*24*60*60*1000,
-        secure: false     // must be false for HTTP
-        });
+        httpOnly: true,            
+        path: "/auth/refresh-token", 
+        maxAge: 7 * 24 * 60 * 60 * 1000, 
+        secure: process.env.NODE_ENV === "production",  
+      });
       res.json({ accessToken, user });
     } catch (err: any) {
       res.status(400).json({ message: err.message });

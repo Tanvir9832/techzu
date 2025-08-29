@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { ReactionService } from "../services/reaction.service";
 import { AuthRequest } from "../middlewares/auth.middleware";
 import mongoose from "mongoose";
