@@ -93,7 +93,7 @@ const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+              className="group relative w-full flex justify-center py-3 cursor-pointer px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
             >
               {loading
                 ? isLogin
@@ -109,7 +109,7 @@ const LoginPage: React.FC = () => {
             <button
               type="button"
               onClick={toggleMode}
-              className="text-purple-600 hover:text-purple-500 text-sm font-medium transition-colors duration-200"
+              className="text-purple-600 hover:text-purple-500 text-sm cursor-pointer font-medium transition-colors duration-200"
             >
               {isLogin
                 ? "Don't have an account? Sign up"
