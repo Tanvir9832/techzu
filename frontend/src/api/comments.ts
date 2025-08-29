@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "../auth/auth";
 
-export interface AuthorRef { email: string }
+export interface AuthorRef {
+  _id: any; email: string 
+}
 export interface Comment {
   _id: string;
   content: string;

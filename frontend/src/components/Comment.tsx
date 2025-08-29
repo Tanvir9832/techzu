@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo, useState } from "react";
 import {
   createReply,
@@ -50,7 +51,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
     if (!user || !item.author) return false;
     return typeof item.author === "string"
       ? item.author === user._id
-      : item.author._id === user._id || item.author.email === user.email;
+      : item.author?._id === user._id || item.author.email === user.email;
   }, [item.author, user]);
 
   const loadReplies = async () => {
