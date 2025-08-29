@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const TOKEN_KEY = "techzu_access_token";
+const apiBaseUrl = import.meta.env.VITE_API_URL_BASE_URL;
+
 
 export const setAccessToken = (token: string) => {
   localStorage.setItem(TOKEN_KEY, token);
@@ -15,7 +17,7 @@ export const clearAccessToken = () => {
 };
 
 const api = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: apiBaseUrl,
   withCredentials: true, 
 });
 
@@ -35,7 +37,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const res = await axios.post(
-          "http://localhost:4000/auth/refresh-token",
+          `${apiBaseUrl}/auth/refresh-token`,
           {},
           { withCredentials: true }
         );
