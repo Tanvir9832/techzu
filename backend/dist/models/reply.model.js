@@ -32,29 +32,12 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const config = __importStar(require("./config"));
-const db_1 = require("./db");
-const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const routes_1 = require("./routes");
-const cors_1 = __importDefault(require("cors"));
-const app = (0, express_1.default)();
-app.use((0, cors_1.default)({
-    origin: process.env.CORS,
-    credentials: true,
-}));
-app.use((0, cookie_parser_1.default)());
-// Middleware
-app.use(express_1.default.json());
-// Routes
-(0, routes_1.applicationRoutes)(app);
-// Database setup 
-(0, db_1.db)();
-// Start server
-app.listen(config.PORT, () => {
-    console.log(`Server is running on http://localhost:${config.PORT}`);
-});
+exports.Reply = void 0;
+const mongoose_1 = __importStar(require("mongoose"));
+const ReplySchema = new mongoose_1.Schema({
+    content: { type: String, required: true },
+    commentId: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "Comment", required: true },
+    userId: { type: mongoose_1.default.Schema.Types.ObjectId, ref: "User", required: true },
+}, { timestamps: true });
+exports.Reply = mongoose_1.default.models.Reply || (0, mongoose_1.model)("Reply", ReplySchema);
