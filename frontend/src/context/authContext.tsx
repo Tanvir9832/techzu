@@ -38,15 +38,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }
         }
         if (token) {
-          // Validate the token by making a test request
           try {
-            // Set the token in axios headers
             setAccessToken(token);
             setToken(token);
-            
-            // Optionally validate the token by making a request to a protected endpoint
-            // This will trigger the refresh token flow if the token is expired
-            // For now, we'll just set the token and let the refresh mechanism handle expired tokens
             
           } catch (validationError) {
             console.error("Token validation failed:", validationError);
@@ -62,7 +56,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setToken(null);
         setUser(null);
       } finally {
-        // Always set loading to false after initialization
         setLoading(false);
       }
     };
